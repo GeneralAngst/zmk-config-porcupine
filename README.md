@@ -14,4 +14,12 @@ Porcupine has three variants:
 * regular 5x3 column-staggered ortholiner layout with 4 thumb keys (38 keys total)
 * regular 6x3 column-staggered ortholiner layout with 4 thumb keys (42 keys total)
 
-The default is always the first one and each variant has a seprate folder and separate keymap.
+Use ZMK github action to build the images.
+
+To build locally, git clone the repository and then reference its `config` folder in the `west build` command:
+
+```bash
+west build -d build/porcupine_left -b nice_nano_v2 -- -DSHIELD=porcupine_left -DZMK_CONFIG="/path/to/your/cloned/repository/config"
+
+west build -d build/porcupine_right -b nice_nano_v2 -- -DSHIELD=porcupine_right -DZMK_CONFIG="/path/to/your/cloned/repository/config"
+```
