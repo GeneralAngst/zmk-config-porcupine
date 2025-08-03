@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2021 The ZMK Contributors
  *
@@ -7,16 +8,15 @@
 #include "porcupine.dtsi"
 
 &default_transform {
-    col-offset = <6>;
+    col-offset = <5>;
 };
 
 &kscan0 {
     col-gpios
-        = <&pro_micro 14 GPIO_ACTIVE_HIGH>
-        , <&pro_micro 15 GPIO_ACTIVE_HIGH>
-        , <&pro_micro 18 GPIO_ACTIVE_HIGH>
-        , <&pro_micro 19 GPIO_ACTIVE_HIGH>
-        , <&pro_micro 20 GPIO_ACTIVE_HIGH>
-        , <&pro_micro 16 GPIO_ACTIVE_HIGH>
+        = <&pro_micro 14 GPIO_ACTIVE_HIGH>  // Inner column (P14)
+        , <&pro_micro 15 GPIO_ACTIVE_HIGH>  // Index column (P15)
+        , <&pro_micro 18 GPIO_ACTIVE_HIGH>  // Middle column (P18)
+        , <&pro_micro 19 GPIO_ACTIVE_HIGH>  // Ring column (P19)
+        , <&pro_micro 20 GPIO_ACTIVE_HIGH>  // Pinky column (P20)
         ;
 };
