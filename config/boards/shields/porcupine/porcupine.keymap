@@ -969,7 +969,7 @@
 
     system {
       bindings = <
-              &none             &to gangst_win    &none             &to gangst         &none                    &none                    &none                &none              &none              &bt BT_CLR
+              &none             &to GANGST_WIN    &none             &to GANGST         &none                    &none                    &none                &none              &none              &bt BT_CLR
               &none             &none             &none             &none              &bootloader              &bootloader              &none                &none              &none              &none
               &none             &none             &none             &none              &none                    &none                    &none                &none              &none              &bt BT_CLR_ALL
                                 &none             &none             &none              &out OUT_USB             &bt_0                    &bt_1                &bt_2              &bt_3
