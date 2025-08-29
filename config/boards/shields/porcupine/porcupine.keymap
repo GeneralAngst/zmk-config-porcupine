@@ -879,18 +879,18 @@
 
     gangst {
       bindings = <
-              &kp J             &kp X             &kp K             &kp F             &mo SYSTEM                &mo SYSTEM               &kp M                &kp G              &kp W              &kp P
-              &hrm_left LCTL H  &hrm_left LALT I  &hrm_left LGUI E  &hrm_left LSFT A  &none                     &none                    &hrm_right LSFT T    &hrm_right LGUI R  &hrm_right LALT S  &hrm_right LCTL N
-              &kp B             &kp Y             &kp O             &kp U             &none                     &none                    &kp D                &kp L              &kp C              &kp V
+              &kp P             &kp W             &kp G             &kp M             &mo SYSTEM                &mo SYSTEM               &kp F                &kp K              &kp X              &kp J
+              &hrm_left LCTL N  &hrm_left LALT S  &hrm_left LGUI R  &hrm_left LSFT T  &none                     &none                    &hrm_right LSFT A    &hrm_right LGUI E  &hrm_right LALT I  &hrm_right LCTL H
+              &kp V             &kp C             &kp L             &kp D             &none                     &none                    &kp O                &kp U              &kp Y              &kp B
                                 &none             &kp ESC           &smart_shift      &lt_thumb NAV TAB         &lt_thumb FUNC BSPC      &lt_space NUM 0      &kp RET            &none
       >;
     };
 
     gangst_win {
       bindings = <
-              &kp J             &kp X             &kp K             &kp F             &mo SYSTEM                &mo SYSTEM               &kp M                &kp G              &kp W              &kp P
-              &hrm_left LGUI H  &hrm_left LALT I  &hrm_left LCTL E  &hrm_left LSFT A  &none                     &none                    &hrm_right LSFT T    &hrm_right LCTL R  &hrm_right LALT S  &hrm_right LGUI N
-              &kp B             &kp Y             &kp O             &kp U             &none                     &none                    &kp D                &kp L              &kp C              &kp V
+              &kp P             &kp W             &kp G             &kp M             &mo SYSTEM                &mo SYSTEM               &kp F                &kp K              &kp X              &kp J
+              &hrm_left LGUI N  &hrm_left LALT S  &hrm_left LCTL R  &hrm_left LSFT T  &none                     &none                    &hrm_right LSFT A    &hrm_right LCTL E  &hrm_right LALT I  &hrm_right LGUI H
+              &kp V             &kp C             &kp L             &kp D             &none                     &none                    &kp O                &kp U              &kp Y              &kp B
                                 &none             &kp ESC           &smart_shift      &lt_thumb NAV_WIN TAB     &lt_thumb FUNC_WIN BSPC  &lt_space NUM_WIN 0  &kp RET            &none
       >;
     };
@@ -969,10 +969,10 @@
 
     system {
       bindings = <
-              &none             &none             &none             &none              &none                    &none                    &none                &none              &none              &bt BT_CLR
-              &none             &none             &none             &none              &none                    &none                    &none                &none              &none              &none
-              &none             &none             &none             &none              &bootloader              &bootloader              &none                &none              &none              &bt BT_CLR_ALL
-                                &to 0             &to 1             &none              &out OUT_USB             &bt_0                    &bt_1                &bt_2              &bt_3
+              &none             &to gangst_win    &none             &to gangst         &none                    &none                    &none                &none              &none              &bt BT_CLR
+              &none             &none             &none             &none              &bootloader              &bootloader              &none                &none              &none              &none
+              &none             &none             &none             &none              &none                    &none                    &none                &none              &none              &bt BT_CLR_ALL
+                                &none             &none             &none              &out OUT_USB             &bt_0                    &bt_1                &bt_2              &bt_3
       >;
     };
 
