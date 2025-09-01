@@ -4,18 +4,17 @@ jobs:
   build:
     strategy:
       matrix:
-        include:
-          - name: porcupine-mac-left
-            shield: porcupine_mac_left
-          - name: porcupine-mac-right
-            shield: porcupine_mac_right
-          - name: porcupine-windows-left
-            shield: porcupine_win_left
-          - name: porcupine-windows-right
-            shield: porcupine_win_right
-          - name: settings-reset
-            shield: settings_reset
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
-    with:
-      board: nice_nano_v2
-      shield: ${{ matrix.shield }}
+        shield:
+          - porcupine_mac_left
+          - porcupine_mac_right
+          - porcupine_win_left
+          - porcupine_win_right
+          - settings_reset
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build firmware
+        uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+        with:
+          board: nice_nano_v2
+          shield: ${{ matrix.shield }}
+
