@@ -2,4 +2,20 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
+    strategy:
+      matrix:
+        include:
+          - name: porcupine-mac-left
+            shield: porcupine_mac_left
+          - name: porcupine-mac-right
+            shield: porcupine_mac_right
+          - name: porcupine-windows-left
+            shield: porcupine_win_left
+          - name: porcupine-windows-right
+            shield: porcupine_win_right
+          - name: settings-reset
+            shield: settings_reset
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    with:
+      board: nice_nano_v2
+      shield: ${{ matrix.shield }}

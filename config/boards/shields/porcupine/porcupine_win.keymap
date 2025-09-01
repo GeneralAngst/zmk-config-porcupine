@@ -41,21 +41,13 @@
         bindings = <&mo layer>, <&to layer>; \
 )
 
-//#define LOWR 1
-//#define RAIS 2
-//#define ADJT 3
-
-#define GANGST 0
-#define GANGST_WIN 1
+#define QWERTY 0
+#define GANGST 1
 #define FUNC 2
-#define FUNC_WIN 3
-#define NUM 4
-#define NUM_WIN 5
-#define NAV 6
-#define NAV_WIN 7
-#define LOWER 8
-#define LOWER_WIN 9
-#define SYSTEM 10
+#define NUM 3
+#define NAV 4
+#define LOWER 5
+#define SYSTEM 6
 
 /* System behavior and Macros */
 / {
@@ -65,8 +57,8 @@
     };
 };
 
+/* Blue-tooth controls */
 / {
-    // blue controls
     #ifdef BT_DISC_CMD
         // blue-tooth toggle
         behaviors {
@@ -181,36 +173,21 @@
     // *************
 
     //win
-    #define WN_LOCK       LG(L)
-    #define WN_HOME       HOME
-    #define WN_END        END
-    #define WN_FWD        RIGHT
-    #define WN_BACK       LEFT
-    #define WN_UNDO       LC(Z)
-    #define WN_REDO       LC(Y)
-    #define WN_CUT        LC(X)
-    #define WN_COPY       LC(C)
-    #define WN_PASTE      LC(V)
-    #define WN_FIND       LC(F)
-    #define WN_FIND_NEXT  LC(G)
-    #define WN_FIND_PREV  LC(LS(G))
-    #define WN_PRNT_SCRN  LG(LS(S))
+    #define LOCK       LG(L)
+    #define HOME       HOME
+    #define END        END
+    #define FWD        RIGHT
+    #define BACK       LEFT
+    #define UNDO       LC(Z)
+    #define REDO       LC(Y)
+    #define CUT        LC(X)
+    #define COPY       LC(C)
+    #define PASTE      LC(V)
+    #define FIND       LC(F)
+    #define FIND_NEXT  LC(G)
+    #define FIND_PREV  LC(LS(G))
+    #define PRNT_SCRN  LG(LS(S))
 
-    //mac
-    #define MC_LOCK       LG(LC(Q))
-    #define MC_HOME       LG(LEFT)
-    #define MC_END        LG(RIGHT)
-    #define MC_FWD        LG(RIGHT)
-    #define MC_BACK       LG(LEFT)
-    #define MC_UNDO       LG(Z)
-    #define MC_REDO       LG(LS(Z))
-    #define MC_CUT        LG(X)
-    #define MC_COPY       LG(C)
-    #define MC_PASTE      LG(V)
-    #define MC_FIND       LG(F)
-    #define MC_FIND_NEXT  LG(G)
-    #define MC_FIND_PREV  LG(LS(G))
-    #define MC_PRNT_SCRN  LG(LS(N4))
 
     // *************
     // key positions
@@ -502,28 +479,9 @@
         ZMK_MACRO(select_word_right,
             wait-ms = <SELECT_WORD_DELAY>;
             tap-ms = <SELECT_WORD_DELAY>;
-            bindings = <&kp LA(RIGHT) &kp LA(LEFT) &kp LA(LS(RIGHT))>;
-        )
-        ZMK_MACRO(select_word_left,
-            wait-ms = <SELECT_WORD_DELAY>;
-            tap-ms = <SELECT_WORD_DELAY>;
-            bindings = <&kp LA(LEFT) &kp LA(RIGHT) &kp LA(LS(LEFT))>;
-        )
-
-        // Windows
-        // tap: selects word to right | shift + tab: selects word to left
-        wn_select_word: wn_select_word {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&wn_select_word_right>, <&wn_select_word_left>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-        ZMK_MACRO(wn_select_word_right,
-            wait-ms = <SELECT_WORD_DELAY>;
-            tap-ms = <SELECT_WORD_DELAY>;
             bindings = <&kp LC(RIGHT) &kp LC(LEFT) &kp LC(LS(RIGHT))>;
         )
-        ZMK_MACRO(wn_select_word_left,
+        ZMK_MACRO(select_word_left,
             wait-ms = <SELECT_WORD_DELAY>;
             tap-ms = <SELECT_WORD_DELAY>;
             bindings = <&kp LC(LEFT) &kp LC(RIGHT) &kp LC(LS(LEFT))>;
@@ -539,28 +497,9 @@
         ZMK_MACRO(extend_word_right,
             wait-ms = <SELECT_WORD_DELAY>;
             tap-ms = <SELECT_WORD_DELAY>;
-            bindings = <&kp LA(LS(RIGHT))>;
-        )
-        ZMK_MACRO(extend_word_left,
-            wait-ms = <SELECT_WORD_DELAY>;
-            tap-ms = <SELECT_WORD_DELAY>;
-            bindings = <&kp LA(LS(LEFT))>;
-        )
-
-        // Windows
-        // tap: extends current selection one word right | shift + tap: extends current selection one word left
-        wn_extend_word: wn_extend_word {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&wn_extend_word_right>, <&wn_extend_word_left>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-        ZMK_MACRO(wn_extend_word_right,
-            wait-ms = <SELECT_WORD_DELAY>;
-            tap-ms = <SELECT_WORD_DELAY>;
             bindings = <&kp LC(LS(RIGHT))>;
         )
-        ZMK_MACRO(wn_extend_word_left,
+        ZMK_MACRO(extend_word_left,
             wait-ms = <SELECT_WORD_DELAY>;
             tap-ms = <SELECT_WORD_DELAY>;
             bindings = <&kp LC(LS(LEFT))>;
@@ -576,28 +515,9 @@
         ZMK_MACRO(select_line_right,
             wait-ms = <SELECT_WORD_DELAY>;
             tap-ms = <SELECT_WORD_DELAY>;
-            bindings = <&kp MC_HOME &kp LS(MC_END)>;
-        )
-        ZMK_MACRO(select_line_left,
-            wait-ms = <SELECT_WORD_DELAY>;
-            tap-ms = <SELECT_WORD_DELAY>;
-            bindings = <&kp MC_END &kp LS(MC_HOME)>;
-        )
-
-        //Windows
-        // tap: selects current line to right | shift + tap: select current line to left
-        wn_select_line: wn_select_line {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&wn_select_line_right>, <&wn_select_line_left>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-        ZMK_MACRO(wn_select_line_right,
-            wait-ms = <SELECT_WORD_DELAY>;
-            tap-ms = <SELECT_WORD_DELAY>;
             bindings = <&kp HOME &kp LS(END)>;
         )
-        ZMK_MACRO(wn_select_line_left,
+        ZMK_MACRO(select_line_left,
             wait-ms = <SELECT_WORD_DELAY>;
             tap-ms = <SELECT_WORD_DELAY>;
             bindings = <&kp END &kp LS(HOME)>;
@@ -613,28 +533,9 @@
         ZMK_MACRO(extend_line_right,
             wait-ms = <SELECT_WORD_DELAY>;
             tap-ms = <SELECT_WORD_DELAY>;
-            bindings = <&kp LS(DOWN) &kp LS(MC_END)>;
-        )
-        ZMK_MACRO(extend_line_left,
-            wait-ms = <SELECT_WORD_DELAY>;
-            tap-ms = <SELECT_WORD_DELAY>;
-            bindings = <&kp LS(UP) &kp LS(MC_HOME)>;
-        )
-
-        //Windows
-        // tap: extends current selection one line right (down) | shift + tap: extends current selection one line left (up)
-        wn_extend_line: wn_extend_line {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&wn_extend_line_right>, <&wn_extend_line_left>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-        ZMK_MACRO(wn_extend_line_right,
-            wait-ms = <SELECT_WORD_DELAY>;
-            tap-ms = <SELECT_WORD_DELAY>;
             bindings = <&kp LS(DOWN) &kp LS(END)>;
         )
-        ZMK_MACRO(wn_extend_line_left,
+        ZMK_MACRO(extend_line_left,
             wait-ms = <SELECT_WORD_DELAY>;
             tap-ms = <SELECT_WORD_DELAY>;
             bindings = <&kp LS(UP) &kp LS(HOME)>;
@@ -662,21 +563,21 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_TP KEY_LH_TR>;
             bindings = <&kp Q>;
-            layers = <GANGST GANGST_WIN>;
+            layers = <QWERTY GANGST>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_angle {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_TR KEY_LH_TM>;
             bindings = <&shift_angle>;
-            layers = <GANGST GANGST_WIN>;
+            layers = <QWERTY GANGST>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_paren {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_TM KEY_LH_TI>;
             bindings = <&shift_parens>;
-            layers = <GANGST GANGST_WIN>;
+            layers = <QWERTY GANGST>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -686,21 +587,21 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_BP KEY_LH_BR>;
             bindings = <&kp Z>;
-            layers = <GANGST GANGST_WIN>;
+            layers = <QWERTY GANGST>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_brace {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_BR KEY_LH_BM>;
             bindings = <&shift_braces>;
-            layers = <GANGST GANGST_WIN>;
+            layers = <QWERTY GANGST>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_bracket {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_BM KEY_LH_BI>;
             bindings = <&shift_brackets>;
-            layers = <GANGST GANGST_WIN>;
+            layers = <QWERTY GANGST>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -711,14 +612,14 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_TI KEY_LH_MI>;
             bindings = <&kp PLUS>;
-            layers = <GANGST GANGST_WIN NUM NUM_WIN>;
+            layers = <QWERTY GANGST NUM>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_minus_x {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_MI KEY_LH_BI>;
             bindings = <&kp MINUS>;
-            layers = <GANGST GANGST_WIN NUM NUM_WIN>;
+            layers = <QWERTY GANGST NUM>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -727,14 +628,14 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_TM KEY_LH_MM>;
             bindings = <&kp STAR>;
-            layers = <GANGST GANGST_WIN NUM NUM_WIN>;
+            layers = <QWERTY GANGST NUM>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_slash_x {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_MM KEY_LH_BM>;
             bindings = <&kp SLASH>;
-            layers = <GANGST GANGST_WIN NUM NUM_WIN>;
+            layers = <QWERTY GANGST NUM>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -743,14 +644,14 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_TR KEY_LH_MR>;
             bindings = <&kp DOLLAR>;
-            layers = <GANGST GANGST_WIN NUM NUM_WIN>;
+            layers = <QWERTY GANGST NUM>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_equal_x {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_MR KEY_LH_BR>;
             bindings = <&kp EQUAL>;
-            layers = <GANGST GANGST_WIN NUM NUM_WIN>;
+            layers = <QWERTY GANGST NUM>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -759,14 +660,14 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_TP KEY_LH_MP>;
             bindings = <&kp CARET>;
-            layers = <GANGST GANGST_WIN NUM NUM_WIN>;
+            layers = <QWERTY GANGST NUM>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_percent_x {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_MP KEY_LH_BP>;
             bindings = <&kp PERCENT>;
-            layers = <GANGST GANGST_WIN NUM NUM_WIN>;
+            layers = <QWERTY GANGST NUM>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -779,7 +680,7 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_MR KEY_RH_MP>;
             bindings = <&kp SQT>;
-            layers = <GANGST GANGST_WIN>;
+            layers = <QWERTY GANGST>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -788,21 +689,21 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_BI KEY_RH_BM>;
             bindings = <&shift_dot_colon>;
-            layers = <GANGST GANGST_WIN>;
+            layers = <QWERTY GANGST>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_comma {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_BM KEY_RH_BR>;
             bindings = <&shift_comma_semi>;
-            layers = <GANGST GANGST_WIN>;
+            layers = <QWERTY GANGST>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_question {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_BR KEY_RH_BP>;
             bindings = <&shift_qmark_excl>;
-            layers = <GANGST GANGST_WIN>;
+            layers = <QWERTY GANGST>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -812,14 +713,14 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_TI KEY_RH_MI>;
             bindings = <&kp HASH>;
-            layers = <GANGST GANGST_WIN>;
+            layers = <QWERTY GANGST>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_under_x {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_MI KEY_RH_BI>;
             bindings = <&kp UNDER>;
-            layers = <GANGST GANGST_WIN>;
+            layers = <QWERTY GANGST>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -828,14 +729,14 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_TM KEY_RH_MM>;
             bindings = <&kp AT>;
-            layers = <GANGST GANGST_WIN>;
+            layers = <QWERTY GANGST>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_grave_x {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_MM KEY_RH_BM>;
             bindings = <&kp GRAVE>;
-            layers = <GANGST GANGST_WIN>;
+            layers = <QWERTY GANGST>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -844,14 +745,14 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_TR KEY_RH_MR>;
             bindings = <&kp AMPS>;
-            layers = <GANGST GANGST_WIN>;
+            layers = <QWERTY GANGST>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_pipe_x {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_MR KEY_RH_BR>;
             bindings = <&kp PIPE>;
-            layers = <GANGST GANGST_WIN>;
+            layers = <QWERTY GANGST>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -860,14 +761,14 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_TP KEY_RH_MP>;
             bindings = <&kp TILDE>;
-            layers = <GANGST GANGST_WIN>;
+            layers = <QWERTY GANGST>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_bslash_x {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_MP KEY_RH_BP>;
             bindings = <&kp BACKSLASH>;
-            layers = <GANGST GANGST_WIN>;
+            layers = <QWERTY GANGST>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
     };
@@ -877,113 +778,77 @@
   keymap {
     compatible = "zmk,keymap";
 
-    gangst {
+    qwerty {
       bindings = <
-              &kp P             &kp W             &kp G             &kp M                  &mo SYSTEM                &mo SYSTEM          &kp F                    &kp K                &kp X              &kp J
-              &hrm_left LCTL N  &hrm_left LALT S  &hrm_left LGUI R  &hrm_left LSFT T       &none                     &none               &hrm_right LSFT A        &hrm_right LGUI E    &hrm_right LALT I  &hrm_right LCTL H
-              &kp V             &kp C             &kp L             &kp D                  &none                     &none               &kp O                    &kp U                &kp Y              &kp B
-                                &kp ESC           &smart_shift      &lt_thumb NAV TAB      &mo LOWER                 &mo LOWER           &lt_thumb FUNC BSPC      &lt_space NUM 0      &kp RET
+        &kp Q             &kp W             &kp E             &kp R              &kp T                     &kp Y        &kp U                &kp I              &kp O              &kp P
+        &hrm_left LGUI A  &hrm_left LALT S  &hrm_left LCTL D  &hrm_left LSFT F   &kp G                     &kp H        &hrm_right LSFT J    &hrm_right LCTL K  &hrm_right LALT L  &hrm_right LGUI SQT
+        &kp Z             &kp X             &kp C             &kp V              &kp B                     &kp N        &kp M                &shift_comma_semi  &shift_dot_colon   &shift_qmark_excl
+                          &kp ESC           &smart_shift      &lt_thumb NAV TAB  &mo LOWER                 &mo LOWER    &lt_thumb FUNC BSPC  &lt_space NUM 0    &kp RET
       >;
     };
 
-    gangst_win {
+    gangst {
       bindings = <
-              &kp P             &kp W             &kp G             &kp M                  &mo SYSTEM                &mo SYSTEM          &kp F                    &kp K                &kp X              &kp J
-              &hrm_left LGUI N  &hrm_left LALT S  &hrm_left LCTL R  &hrm_left LSFT T       &none                     &none               &hrm_right LSFT A        &hrm_right LCTL E    &hrm_right LALT I  &hrm_right LGUI H
-              &kp V             &kp C             &kp L             &kp D                  &none                     &none               &kp O                    &kp U                &kp Y              &kp B
-                                &kp ESC           &smart_shift      &lt_thumb NAV_WIN TAB  &mo LOWER_WIN             &mo LOWER_WIN       &lt_thumb FUNC_WIN BSPC  &lt_space NUM_WIN 0  &kp RET
+        &kp P             &kp W             &kp G             &kp M              &mo SYSTEM                &mo SYSTEM   &kp F                &kp K              &kp X              &kp J
+        &hrm_left LGUI N  &hrm_left LALT S  &hrm_left LCTL R  &hrm_left LSFT T   &none                     &none        &hrm_right LSFT A    &hrm_right LCTL E  &hrm_right LALT I  &hrm_right LGUI H
+        &kp V             &kp C             &kp L             &kp D              &none                     &none        &kp O                &kp U              &kp Y              &kp B
+                          &kp ESC           &smart_shift      &lt_thumb NAV TAB  &mo LOWER                 &mo LOWER    &lt_thumb FUNC BSPC  &lt_space NUM 0    &kp RET
       >;
     };
 
     func {
       bindings = <
-              &kp F9            &kp F10           &kp F11           &kp F12                &mo SYSTEM                &mo SYSTEM          &kp C_RW                 &kp C_PP             &kp C_FF           &kp C_BRI_UP
-              &kp F5            &kp F6            &kp F7            &kp F8                 &none                     &none               &kp LSHFT                &kp LGUI             &kp LALT           &kp LCTRL
-              &kp F1            &kp F2            &kp F3            &kp F4                 &none                     &none               &kp C_MUTE               &kp C_VOL_DN         &kp C_VOL_UP       &kp C_BRI_DN
-                                &trans            &trans            &none                  &tog FUNC                 &tog FUNC           &none                    &kp SPACE            &trans
-      >;
-    };
-
-    func_win {
-      bindings = <
-              &kp F9            &kp F10           &kp F11           &kp F12                &mo SYSTEM                &mo SYSTEM          &kp C_RW                 &kp C_PP             &kp C_FF           &kp C_BRI_UP
-              &kp F5            &kp F6            &kp F7            &kp F8                 &none                     &none               &kp LSHFT                &kp LCTRL            &kp LALT           &kp LGUI
-              &kp F1            &kp F2            &kp F3            &kp F4                 &none                     &none               &kp C_MUTE               &kp C_VOL_DN         &kp C_VOL_UP       &kp C_BRI_DN
-                                &trans            &trans            &none                  &tog FUNC_WIN             &tog FUNC_WIN       &none                    &kp SPACE            &trans
+        &kp F9            &kp F10           &kp F11           &kp F12            &mo SYSTEM                &mo SYSTEM   &kp C_RW             &kp C_PP           &kp C_FF           &kp C_BRI_UP
+        &kp F5            &kp F6            &kp F7            &kp F8             &none                     &none        &kp LSHFT            &kp LCTRL          &kp LALT           &kp LGUI
+        &kp F1            &kp F2            &kp F3            &kp F4             &none                     &none        &kp C_MUTE           &kp C_VOL_DN       &kp C_VOL_UP       &kp C_BRI_DN
+                          &trans            &trans            &none              &tog FUNC                 &tog FUNC    &none                &kp SPACE          &trans
       >;
     };
 
     num {
       bindings = <
-              &kp KP_CLEAR      &kp KP_N7         &shift_eight      &kp KP_N9              &mo SYSTEM                &mo SYSTEM          &none                    &none                &none              &none
-              &kp KP_N0         &shift_four       &shift_five       &shift_six             &none                     &none               &kp LSHFT                &kp LGUI             &kp LALT           &kp LCTRL
-              &kp KP_DOT        &kp KP_N1         &kp KP_N2         &kp KP_N3              &none                     &none               &kp BSPC                 &kp SPACE            &kp TAB            &kp RET
-                                &trans            &trans            &none                  &tog NUM                  &tog NUM            &none                    &none                &trans
-      >;
-    };
-
-    num_win {
-      bindings = <
-              &kp KP_CLEAR      &kp KP_N7         &shift_eight      &kp KP_N9              &mo SYSTEM                &mo SYSTEM          &none                    &none                &none              &none
-              &kp KP_N0         &shift_four       &shift_five       &shift_six             &none                     &none               &kp LSHFT                &kp LCTRL            &kp LALT           &kp LGUI
-              &kp KP_DOT        &kp KP_N1         &kp KP_N2         &kp KP_N3              &none                     &none               &kp BSPC                 &kp SPACE            &kp TAB            &kp RET
-                                &trans            &trans            &none                  &tog NUM_WIN              &tog NUM_WIN        &none                    &none                &trans
+        &kp KP_CLEAR      &kp KP_N7         &shift_eight      &kp KP_N9          &mo SYSTEM                &mo SYSTEM   &none                &none              &none              &none
+        &kp KP_N0         &shift_four       &shift_five       &shift_six         &none                     &none        &kp LSHFT            &kp LCTRL          &kp LALT           &kp LGUI
+        &kp KP_DOT        &kp KP_N1         &kp KP_N2         &kp KP_N3          &none                     &none        &kp BSPC             &kp SPACE          &kp TAB            &kp RET
+                          &trans            &trans            &none              &tog NUM                  &tog NUM     &none                &none              &trans
       >;
     };
 
     nav {
       bindings = <
-              &kp MC_REDO       &none             &kp MC_PRNT_SCRN  &kp MC_FIND            &mo SYSTEM                &mo SYSTEM          &kp MC_HOME              &kp UP               &kp MC_END         &kp PG_UP
-              &kp LCTRL         &kp LALT          &kp LGUI          &kp LSHFT              &none                     &none               &kp LEFT                 &kp DOWN             &kp RIGHT          &kp PG_DN
-              &kp MC_UNDO       &kp MC_CUT        &kp MC_COPY       &kp MC_PASTE           &none                     &none               &select_word             &extend_word         &select_line       &extend_line
-                                &trans            &trans            &none                  &tog NAV                  &tog NAV            &none                    &kp SPACE            &trans
-      >;
-    };
-
-    nav_win {
-      bindings = <
-              &kp WN_REDO       &none             &kp WN_PRNT_SCRN  &kp WN_FIND            &mo SYSTEM                &mo SYSTEM          &kp HOME                 &kp UP               &kp END            &kp PG_UP
-              &kp LGUI          &kp LALT          &kp LCTRL         &kp LSHFT              &none                     &none               &kp LEFT                 &kp DOWN             &kp RIGHT          &kp PG_DN
-              &kp WN_UNDO       &kp WN_CUT        &kp WN_COPY       &kp WN_PASTE           &none                     &none               &wn_select_word          &wn_extend_word      &wn_select_line    &wn_extend_line
-                                &trans            &trans            &none                  &tog NAV_WIN              &tog NAV_WIN        &none                    &kp SPACE            &trans
+        &kp REDO          &none             &kp PRNT_SCRN     &kp FIND           &mo SYSTEM                &mo SYSTEM   &kp HOME             &kp UP             &kp END            &kp PG_UP
+        &kp LGUI          &kp LALT          &kp LCTRL         &kp LSHFT          &none                     &none        &kp LEFT             &kp DOWN           &kp RIGHT          &kp PG_DN
+        &kp UNDO          &kp CUT           &kp COPY          &kp PASTE          &none                     &none        &select_word         &extend_word       &select_line       &extend_line
+                          &trans            &trans            &none              &tog NAV                  &tog NAV     &none                &kp SPACE          &trans
       >;
     };
 
     lower {
       bindings = <
-              &none             &none             &none             &none                  &mo SYSTEM                &mo SYSTEM          &none                    &none                &none              &none
-              &none             &none             &none             &none                  &none                     &none               &none                    &none                &none              &none
-              &none             &none             &none             &none                  &none                     &none               &none                    &none                &none              &none
-                                &none             &none             &tog NAV               &tog LOWER                &tog LOWER          &tog FUNC                &tog NUM             &none
-      >;
-    };
-
-    lower_win {
-      bindings = <
-              &none             &none             &none             &none                  &mo SYSTEM                &mo SYSTEM          &none                    &none                &none              &none
-              &none             &none             &none             &none                  &none                     &none               &none                    &none                &none              &none
-              &none             &none             &none             &none                  &none                     &none               &none                    &none                &none              &none
-                                &none             &none             &tog NAV_WIN           &tog LOWER_WIN            &tog LOWER_WIN      &tog FUNC_WIN            &tog NUM_WIN         &none
+        &none             &none             &none             &none              &mo SYSTEM                &mo SYSTEM   &none                &none              &none              &none
+        &none             &none             &none             &none              &none                     &none        &none                &none              &none              &none
+        &none             &none             &none             &none              &none                     &none        &none                &none              &none              &none
+                          &none             &none             &tog NAV           &tog LOWER                &tog LOWER   &tog FUNC            &tog NUM           &none
       >;
     };
 
     system {
       bindings = <
-              &none             &to GANGST_WIN    &none             &to GANGST             &none                     &none               &none                    &none                &none              &bt BT_CLR
-              &none             &none             &none             &none                  &bootloader               &bootloader         &none                    &none                &none              &none
-              &none             &none             &none             &none                  &none                     &none               &none                    &none                &none              &bt BT_CLR_ALL
-                                &none             &none             &none                  &out OUT_USB              &bt_0               &bt_1                    &bt_2                &bt_3
+        &none             &to QWERTY        &none             &to GANGST         &none                     &none        &none                &none              &none              &bt BT_CLR
+        &none             &none             &none             &none              &bootloader               &bootloader  &none                &none              &none              &none
+        &none             &none             &none             &none              &none                     &none        &none                &none              &none              &bt BT_CLR_ALL
+                          &none             &none             &none              &out OUT_USB              &bt_0        &bt_1                &bt_2              &bt_3
       >;
     };
 
-//    template {
-//          bindings = <
-//                  &none             &none             &none             &none              &mo SYSTEM               &mo SYSTEM               &none                &none              &none              &none
-//                  &none             &none             &none             &none              &none                    &none                    &none                &none              &none              &none
-//                  &none             &none             &none             &none              &none                    &none                    &none                &none              &none              &none
-//                                    &none             &none             &none              &none                    &none                    &none                &none              &none
-//          >;
-//        };
+    template {
+      bindings = <
+        &none             &none             &none             &none              &mo SYSTEM                &mo SYSTEM   &none                &none              &none              &none
+        &none             &none             &none             &none              &none                     &none        &none                &none              &none              &none
+        &none             &none             &none             &none              &none                     &none        &none                &none              &none              &none
+                          &none             &none             &none              &none                     &none        &none                &none              &none
+      >;
+    };
 
   };
 };
