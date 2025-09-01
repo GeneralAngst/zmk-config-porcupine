@@ -10,11 +10,9 @@ jobs:
           - porcupine_win_left
           - porcupine_win_right
           - settings_reset
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build firmware
-        uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
-        with:
-          board: nice_nano_v2
-          shield: ${{ matrix.shield }}
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    with:
+      board: nice_nano_v2
+      shield: ${{ matrix.shield }}
+
 
