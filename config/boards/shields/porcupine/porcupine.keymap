@@ -907,7 +907,7 @@
     system_wn {
       bindings = <
         &none             &none             &none             &none                 &bt BT_CLR_ALL         &out OUT_USB   &none                   &none               &none              &none
-        &bt_0             &bt_1             &bt_2             &bt_3                 &bt BT_CLR             &none          &to QWERTY              &to QWERTY_WN       &to GANGST         &to GANGST_W
+        &bt_0             &bt_1             &bt_2             &bt_3                 &bt BT_CLR             &none          &to QWERTY              &to QWERTY_WN       &to GANGST         &to GANGST_WN
         &none             &none             &none             &none                 &bootloader            &bootloader    &none                   &none               &none              &none
                           &bt BT_CLR_ALL    &none             &tog NAV_WN           &none                  &none          &tog FUNC_WN            &tog NUM_WN         &none
       >;
