@@ -6,9 +6,9 @@
  */
 
   /************************
-  * Mac Version
-  *
   * Porcupine - ZMK Keymap
+  *
+  * Multiple-OS keymap with qwerty and gangst layouts.
   *
   ************************/
 
@@ -21,13 +21,13 @@
 
 #pragma once
 
-#define ZMK_HELPER_STRINGIFY(x) #x
+//#define ZMK_HELPER_STRINGIFY(x) #x
 
 // Preprocessor mechanism to overload macros, cf. https://stackoverflow.com/a/27051616/6114651
-#define VARGS_(_10, _9, _8, _7, _6, _5, _4, _3, _2, _1, N, ...) N
-#define VARGS(...) VARGS_(__VA_ARGS__, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
-#define CONCAT_(a, b) a##b
-#define CONCAT(a, b) CONCAT_(a, b)
+//#define VARGS_(_10, _9, _8, _7, _6, _5, _4, _3, _2, _1, N, ...) N
+//#define VARGS(...) VARGS_(__VA_ARGS__, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
+//#define CONCAT_(a, b) a##b
+//#define CONCAT(a, b) CONCAT_(a, b)
 
 //#define ZMK_BEHAVIOR_CORE_tap_dance  \
 //    compatible = "zmk,behavior-tap-dance"; \
@@ -49,11 +49,17 @@
 //)
 
 #define QWERTY 0
-#define GANGST 1
-#define FUNC 2
-#define NUM 3
-#define NAV 4
-#define SYSTEM 5
+#define QWERTY_WN 1
+#define GANGST 2
+#define GANGST_WN 3
+#define FUNC 4
+#define FUNC_WN 5
+#define NUM 6
+#define NUM_WN 7
+#define NAV 8
+#define NAV_WN 9
+#define SYSTEM 10
+#define SYSTEM_WN 11
 
 /* System behavior and Macros */
 /// {
@@ -65,109 +71,41 @@
 
 /* Blue-tooth controls */
 / {
-    #ifdef BT_DISC_CMD
-        // blue-tooth toggle
-        behaviors {
-            bt_0: bt_0 {
-                compatible = "zmk,behavior-tap-dance";
-                label = "BT_0";
-                #binding-cells = <0>;
-                tapping-term-ms = <200>;
-                bindings = <&bt_select_0>, <&bt BT_DISC 0>;
-            };
-            bt_1: bt_1 {
-                compatible = "zmk,behavior-tap-dance";
-                label = "BT_1";
-                #binding-cells = <0>;
-                tapping-term-ms = <200>;
-                bindings = <&bt_select_1>, <&bt BT_DISC 1>;
-            };
-            bt_2: bt_2 {
-                compatible = "zmk,behavior-tap-dance";
-                label = "BT_2";
-                #binding-cells = <0>;
-                tapping-term-ms = <200>;
-                bindings = <&bt_select_2>, <&bt BT_DISC 2>;
-            };
-            bt_3: bt_3 {
-                compatible = "zmk,behavior-tap-dance";
-                label = "BT_3";
-                #binding-cells = <0>;
-                tapping-term-ms = <200>;
-                bindings = <&bt_select_3>, <&bt BT_DISC 3>;
-            };
+    // set blue-tooth
+    macros {
+        bt_0: bt_0 {
+            label = "BT_0";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&out OUT_BLE>,
+                  <&bt BT_SEL 0>;
         };
-        macros {
-            bt_select_0: bt_select_0 {
-                label = "BT_SELECT_0";
-                compatible = "zmk,behavior-macro";
-                #binding-cells = <0>;
-                bindings
-                    = <&out OUT_BLE>,
-                      <&bt BT_SEL 0>;
-            };
-            bt_select_1: bt_select_1 {
-                label = "BT_SELECT_1";
-                compatible = "zmk,behavior-macro";
-                #binding-cells = <0>;
-                bindings
-                    = <&out OUT_BLE>,
-                      <&bt BT_SEL 1>;
-            };
-            bt_select_2: bt_select_2 {
-                label = "BT_SELECT_2";
-                compatible = "zmk,behavior-macro";
-                #binding-cells = <0>;
-                bindings
-                    = <&out OUT_BLE>,
-                      <&bt BT_SEL 2>;
-            };
-            bt_select_3: bt_select_3 {
-                label = "BT_SELECT_3";
-                compatible = "zmk,behavior-macro";
-                #binding-cells = <0>;
-                bindings
-                    = <&out OUT_BLE>,
-                      <&bt BT_SEL 3>;
-            };
+        bt_1: bt_1 {
+            label = "BT_1";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&out OUT_BLE>,
+                  <&bt BT_SEL 1>;
         };
-    #else
-        // simple set blue-tooth
-        macros {
-            bt_0: bt_0 {
-                label = "BT_0";
-                compatible = "zmk,behavior-macro";
-                #binding-cells = <0>;
-                bindings
-                    = <&out OUT_BLE>,
-                      <&bt BT_SEL 0>;
-            };
-            bt_1: bt_1 {
-                label = "BT_1";
-                compatible = "zmk,behavior-macro";
-                #binding-cells = <0>;
-                bindings
-                    = <&out OUT_BLE>,
-                      <&bt BT_SEL 1>;
-            };
-            bt_2: bt_2 {
-                label = "BT_2";
-                compatible = "zmk,behavior-macro";
-                #binding-cells = <0>;
-                bindings
-                    = <&out OUT_BLE>,
-                      <&bt BT_SEL 2>;
-            };
-            bt_3: bt_3 {
-                label = "BT_3";
-                compatible = "zmk,behavior-macro";
-                #binding-cells = <0>;
-                bindings
-                    = <&out OUT_BLE>,
-                      <&bt BT_SEL 3>;
-            };
+        bt_2: bt_2 {
+            label = "BT_2";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&out OUT_BLE>,
+                  <&bt BT_SEL 2>;
         };
-    #endif
+        bt_3: bt_3 {
+            label = "BT_3";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&out OUT_BLE>,
+                  <&bt BT_SEL 3>;
+        };
+    };
 };
 
 /* Custom Defined Behaviors */
@@ -179,20 +117,36 @@
     // *************
 
     //mac
-    #define LOCK       LG(LC(Q))
-    #define HOME       LG(LEFT)
-    #define END        LG(RIGHT)
-    #define FWD        LG(RIGHT)
-    #define BACK       LG(LEFT)
-    #define UNDO       LG(Z)
-    #define REDO       LG(LS(Z))
-    #define CUT        LG(X)
-    #define COPY       LG(C)
-    #define PASTE      LG(V)
-    #define FIND       LG(F)
-    #define FIND_NEXT  LG(G)
-    #define FIND_PREV  LG(LS(G))
-    #define PRNT_SCRN  LG(LS(N4))
+    #define MC_LOCK       LG(LC(Q))
+    #define MC_HOME       LG(LEFT)
+    #define MC_END        LG(RIGHT)
+    #define MC_FWD        LG(RIGHT)
+    #define MC_BACK       LG(LEFT)
+    #define MC_UNDO       LG(Z)
+    #define MC_REDO       LG(LS(Z))
+    #define MC_CUT        LG(X)
+    #define MC_COPY       LG(C)
+    #define MC_PASTE      LG(V)
+    #define MC_FIND       LG(F)
+    #define MC_FIND_NEXT  LG(G)
+    #define MC_FIND_PREV  LG(LS(G))
+    #define MC_PRNT_SCRN  LG(LS(N4))
+
+    //win
+    #define WN_LOCK       LG(L)
+    #define WN_HOME       HOME
+    #define WN_END        END
+    #define WN_FWD        RIGHT
+    #define WN_BACK       LEFT
+    #define WN_UNDO       LC(Z)
+    #define WN_REDO       LC(Y)
+    #define WN_CUT        LC(X)
+    #define WN_COPY       LC(C)
+    #define WN_PASTE      LC(V)
+    #define WN_FIND       LC(F)
+    #define WN_FIND_NEXT  LC(G)
+    #define WN_FIND_PREV  LC(LS(G))
+    #define WN_PRNT_SCRN  LG(LS(S))
 
     // *************
     // key positions
@@ -394,12 +348,12 @@
         };
 
         // tap: dot | shift + tap: extend_line_right
-        shift_dot: shift_dot {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp KP_DOT>, <&extend_line_right>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
+//        shift_dot: shift_dot {
+//            compatible = "zmk,behavior-mod-morph";
+//            #binding-cells = <0>;
+//            bindings = <&kp KP_DOT>, <&extend_line_right>;
+//            mods = <(MOD_LSFT|MOD_RSFT)>;
+//        };
 
         // tap: 4 | shift + tap: left
         shift_four: shift_four {
@@ -492,6 +446,24 @@
             bindings = <&kp LA(LEFT) &kp LA(RIGHT) &kp LA(LS(LEFT))>;
         )
 
+        // win tap: selects word to right | shift + tab: selects word to left
+        select_word_wn: select_word_wn {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&select_word_right_wn>, <&select_word_left_wn>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        ZMK_MACRO(select_word_right_wn,
+            wait-ms = <SELECT_WORD_DELAY>;
+            tap-ms = <SELECT_WORD_DELAY>;
+            bindings = <&kp LC(RIGHT) &kp LC(LEFT) &kp LC(LS(RIGHT))>;
+        )
+        ZMK_MACRO(select_word_left_wn,
+            wait-ms = <SELECT_WORD_DELAY>;
+            tap-ms = <SELECT_WORD_DELAY>;
+            bindings = <&kp LC(LEFT) &kp LC(RIGHT) &kp LC(LS(LEFT))>;
+        )
+
         // tap: extends current selection one word right | shift + tap: extends current selection one word left
         extend_word: extend_word {
             compatible = "zmk,behavior-mod-morph";
@@ -510,6 +482,24 @@
             bindings = <&kp LA(LS(LEFT))>;
         )
 
+        // win tap: extends current selection one word right | shift + tap: extends current selection one word left
+        extend_word_wn: extend_word_wn {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&extend_word_right_wn>, <&extend_word_left_wn>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        ZMK_MACRO(extend_word_right_wn,
+            wait-ms = <SELECT_WORD_DELAY>;
+            tap-ms = <SELECT_WORD_DELAY>;
+            bindings = <&kp LC(LS(RIGHT))>;
+        )
+        ZMK_MACRO(extend_word_left_wn,
+            wait-ms = <SELECT_WORD_DELAY>;
+            tap-ms = <SELECT_WORD_DELAY>;
+            bindings = <&kp LC(LS(LEFT))>;
+        )
+
         // tap: selects current line to right | shift + tap: select current line to left
         select_line: select_line {
             compatible = "zmk,behavior-mod-morph";
@@ -520,12 +510,30 @@
         ZMK_MACRO(select_line_right,
             wait-ms = <SELECT_WORD_DELAY>;
             tap-ms = <SELECT_WORD_DELAY>;
-            bindings = <&kp HOME &kp LS(END)>;
+            bindings = <&kp MC_HOME &kp LS(MC_END)>;
         )
         ZMK_MACRO(select_line_left,
             wait-ms = <SELECT_WORD_DELAY>;
             tap-ms = <SELECT_WORD_DELAY>;
-            bindings = <&kp END &kp LS(HOME)>;
+            bindings = <&kp MC_END &kp LS(MC_HOME)>;
+        )
+
+        // win tap: selects current line to right | shift + tap: select current line to left
+        select_line_wn: select_line_wn {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&select_line_right_wn>, <&select_line_left_wn>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        ZMK_MACRO(select_line_right_wn,
+            wait-ms = <SELECT_WORD_DELAY>;
+            tap-ms = <SELECT_WORD_DELAY>;
+            bindings = <&kp WN_HOME &kp LS(WN_END)>;
+        )
+        ZMK_MACRO(select_line_left_wn,
+            wait-ms = <SELECT_WORD_DELAY>;
+            tap-ms = <SELECT_WORD_DELAY>;
+            bindings = <&kp WN_END &kp LS(WN_HOME)>;
         )
 
         // tap: extends current selection one line right (down) | shift + tap: extends current selection one line left (up)
@@ -538,12 +546,30 @@
         ZMK_MACRO(extend_line_right,
             wait-ms = <SELECT_WORD_DELAY>;
             tap-ms = <SELECT_WORD_DELAY>;
-            bindings = <&kp LS(DOWN) &kp LS(END)>;
+            bindings = <&kp LS(DOWN) &kp LS(MC_END)>;
         )
         ZMK_MACRO(extend_line_left,
             wait-ms = <SELECT_WORD_DELAY>;
             tap-ms = <SELECT_WORD_DELAY>;
-            bindings = <&kp LS(UP) &kp LS(HOME)>;
+            bindings = <&kp LS(UP) &kp LS(MC_HOME)>;
+        )
+
+        // win tap: extends current selection one line right (down) | shift + tap: extends current selection one line left (up)
+        extend_line_wn: extend_line_wn {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&extend_line_right_wn>, <&extend_line_left_wn>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        ZMK_MACRO(extend_line_right_wn,
+            wait-ms = <SELECT_WORD_DELAY>;
+            tap-ms = <SELECT_WORD_DELAY>;
+            bindings = <&kp LS(DOWN) &kp LS(WN_END)>;
+        )
+        ZMK_MACRO(extend_line_left_wn,
+            wait-ms = <SELECT_WORD_DELAY>;
+            tap-ms = <SELECT_WORD_DELAY>;
+            bindings = <&kp LS(UP) &kp LS(WN_HOME)>;
         )
     };
 
@@ -557,10 +583,6 @@
             #define COMBO_TIMEOUT 50
         #endif
 
-        // *************
-        // 30 key combos
-        // *************
-
         // left combos
         // horizontal
         // top
@@ -568,21 +590,21 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_TP KEY_LH_TR>;
             bindings = <&kp Q>;
-            layers = <GANGST QWERTY>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_angle {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_TR KEY_LH_TM>;
             bindings = <&shift_angle>;
-            layers = <GANGST QWERTY>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_paren {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_TM KEY_LH_TI>;
             bindings = <&shift_parens>;
-            layers = <GANGST QWERTY>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -592,21 +614,21 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_BP KEY_LH_BR>;
             bindings = <&kp Z>;
-            layers = <GANGST QWERTY>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_brace {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_BR KEY_LH_BM>;
             bindings = <&shift_braces>;
-            layers = <GANGST QWERTY>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_bracket {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_BM KEY_LH_BI>;
             bindings = <&shift_brackets>;
-            layers = <GANGST QWERTY>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -617,14 +639,14 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_TI KEY_LH_MI>;
             bindings = <&kp PLUS>;
-            layers = <GANGST QWERTY NUM>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN NUM NUM_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_minus_x {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_MI KEY_LH_BI>;
             bindings = <&kp MINUS>;
-            layers = <GANGST QWERTY NUM>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN NUM NUM_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -633,14 +655,14 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_TM KEY_LH_MM>;
             bindings = <&kp STAR>;
-            layers = <GANGST QWERTY NUM>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN NUM NUM_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_slash_x {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_MM KEY_LH_BM>;
             bindings = <&kp SLASH>;
-            layers = <GANGST QWERTY NUM>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN NUM NUM_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -649,14 +671,14 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_TR KEY_LH_MR>;
             bindings = <&kp DOLLAR>;
-            layers = <GANGST QWERTY NUM>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN NUM NUM_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_equal_x {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_MR KEY_LH_BR>;
             bindings = <&kp EQUAL>;
-            layers = <GANGST QWERTY NUM>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN NUM NUM_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -665,14 +687,14 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_TP KEY_LH_MP>;
             bindings = <&kp CARET>;
-            layers = <GANGST QWERTY NUM>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN NUM NUM_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_percent_x {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_LH_MP KEY_LH_BP>;
             bindings = <&kp PERCENT>;
-            layers = <GANGST QWERTY NUM>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN NUM NUM_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -685,7 +707,7 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_MR KEY_RH_MP>;
             bindings = <&kp SQT>;
-            layers = <GANGST QWERTY>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -694,21 +716,21 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_BI KEY_RH_BM>;
             bindings = <&shift_dot_colon>;
-            layers = <GANGST QWERTY>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_comma {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_BM KEY_RH_BR>;
             bindings = <&shift_comma_semi>;
-            layers = <GANGST QWERTY>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_question {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_BR KEY_RH_BP>;
             bindings = <&shift_qmark_excl>;
-            layers = <GANGST QWERTY>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -718,14 +740,14 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_TI KEY_RH_MI>;
             bindings = <&kp HASH>;
-            layers = <GANGST QWERTY>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_under_x {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_MI KEY_RH_BI>;
             bindings = <&kp UNDER>;
-            layers = <GANGST QWERTY>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -734,14 +756,14 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_TM KEY_RH_MM>;
             bindings = <&kp AT>;
-            layers = <GANGST QWERTY>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_grave_x {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_MM KEY_RH_BM>;
             bindings = <&kp GRAVE>;
-            layers = <GANGST QWERTY>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -750,14 +772,14 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_TR KEY_RH_MR>;
             bindings = <&kp AMPS>;
-            layers = <GANGST QWERTY>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_pipe_x {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_MR KEY_RH_BR>;
             bindings = <&kp PIPE>;
-            layers = <GANGST QWERTY>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
 
@@ -766,14 +788,14 @@
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_TP KEY_RH_MP>;
             bindings = <&kp TILDE>;
-            layers = <GANGST QWERTY>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
         cmb_bslash_x {
             timeout-ms = <COMBO_TIMEOUT>;
             key-positions = <KEY_RH_MP KEY_RH_BP>;
             bindings = <&kp BACKSLASH>;
-            layers = <GANGST QWERTY>;
+            layers = <QWERTY GANGST QWERTY_WN GANGST_WN>;
             require-prior-idle-ms = <PRIOR_IDLE_MS>;
         };
     };
@@ -785,66 +807,111 @@
 
     qwerty {
       bindings = <
-        &kp Q             &kp W             &kp E             &kp R              &kp T                  &kp Y         &kp U                &kp I              &kp O              &kp P
-        &hrm_left LCTL A  &hrm_left LALT S  &hrm_left LGUI D  &hrm_left LSFT F   &kp G                  &kp H         &hrm_right LSFT J    &hrm_right LGUI K  &hrm_right LALT L  &hrm_right LCTL SQT
-        &kp Z             &kp X             &kp C             &kp V              &kp B                  &kp N         &kp M                &shift_comma_semi  &shift_dot_colon   &shift_qmark_excl
-                          &kp ESC           &smart_shift      &lt_thumb NAV TAB  &mo SYSTEM             &mo SYSTEM    &lt_thumb FUNC BSPC  &lt_space NUM 0    &kp RET
+        &kp Q             &kp W             &kp E             &kp R                 &kp T                  &kp Y          &kp U                   &kp I               &kp O              &kp P
+        &hrm_left LCTL A  &hrm_left LALT S  &hrm_left LGUI D  &hrm_left LSFT F      &kp G                  &kp H          &hrm_right LSFT J       &hrm_right LGUI K   &hrm_right LALT L  &hrm_right LCTL SQT
+        &kp Z             &kp X             &kp C             &kp V                 &kp B                  &kp N          &kp M                   &shift_comma_semi   &shift_dot_colon   &shift_qmark_excl
+                          &kp ESC           &smart_shift      &lt_thumb NAV TAB     &mo SYSTEM             &mo SYSTEM     &lt_thumb FUNC BSPC     &lt_space NUM 0     &kp RET
+      >;
+    };
+
+    qwerty_wn {
+      bindings = <
+        &kp Q             &kp W             &kp E             &kp R                 &kp T                  &kp Y          &kp U                   &kp I               &kp O              &kp P
+        &hrm_left LGUI A  &hrm_left LALT S  &hrm_left LCTL D  &hrm_left LSFT F      &kp G                  &kp H          &hrm_right LSFT J       &hrm_right LCTL K   &hrm_right LALT L  &hrm_right LGUI SQT
+        &kp Z             &kp X             &kp C             &kp V                 &kp B                  &kp N          &kp M                   &shift_comma_semi   &shift_dot_colon   &shift_qmark_excl
+                          &kp ESC           &smart_shift      &lt_thumb NAV_WN TAB  &mo SYSTEM_WN          &mo SYSTEM_WN  &lt_thumb FUNC_WN BSPC  &lt_space NUM_WN 0  &kp RET
       >;
     };
 
     gangst {
       bindings = <
-        &kp P             &kp W             &kp G             &kp M              &none                  &none         &kp F                &kp K              &kp X              &kp J
-        &hrm_left LCTL N  &hrm_left LALT S  &hrm_left LGUI R  &hrm_left LSFT T   &none                  &none         &hrm_right LSFT A    &hrm_right LGUI E  &hrm_right LALT I  &hrm_right LCTL H
-        &kp V             &kp C             &kp L             &kp D              &none                  &none         &kp O                &kp U              &kp Y              &kp B
-                          &kp ESC           &smart_shift      &lt_thumb NAV TAB  &mo SYSTEM             &mo SYSTEM    &lt_thumb FUNC BSPC  &lt_space NUM 0    &kp RET
+        &kp P             &kp W             &kp G             &kp M                 &none                  &none          &kp F                   &kp K               &kp X              &kp J
+        &hrm_left LCTL N  &hrm_left LALT S  &hrm_left LGUI R  &hrm_left LSFT T      &none                  &none          &hrm_right LSFT A       &hrm_right LGUI E   &hrm_right LALT I  &hrm_right LCTL H
+        &kp V             &kp C             &kp L             &kp D                 &none                  &none          &kp O                   &kp U               &kp Y              &kp B
+                          &kp ESC           &smart_shift      &lt_thumb NAV TAB     &mo SYSTEM             &mo SYSTEM     &lt_thumb FUNC BSPC     &lt_space NUM 0     &kp RET
+      >;
+    };
+
+    gangst_wn {
+      bindings = <
+        &kp P             &kp W             &kp G             &kp M                 &none                  &none          &kp F                   &kp K               &kp X              &kp J
+        &hrm_left LGUI N  &hrm_left LALT S  &hrm_left LCTL R  &hrm_left LSFT T      &none                  &none          &hrm_right LSFT A       &hrm_right LCTL E   &hrm_right LALT I  &hrm_right LGUI H
+        &kp V             &kp C             &kp L             &kp D                 &none                  &none          &kp O                   &kp U               &kp Y              &kp B
+                          &kp ESC           &smart_shift      &lt_thumb NAV_WN TAB  &mo SYSTEM_WN          &mo SYSTEM_WN  &lt_thumb FUNC_WN BSPC  &lt_space NUM_WN 0  &kp RET
       >;
     };
 
     func {
       bindings = <
-        &kp F9            &kp F10           &kp F11           &kp F12            &none                  &none         &kp C_RW             &kp C_PP           &kp C_FF           &kp C_BRI_UP
-        &kp F5            &kp F6            &kp F7            &kp F8             &none                  &none         &kp LSHFT            &kp LGUI           &kp LALT           &kp LCTRL
-        &kp F1            &kp F2            &kp F3            &kp F4             &none                  &none         &kp C_MUTE           &kp C_VOL_DN       &kp C_VOL_UP       &kp C_BRI_DN
-                          &trans            &trans            &kp TAB            &tog FUNC              &tog FUNC     &kp BSPC             &kp SPACE          &trans
+        &kp F9            &kp F10           &kp F11           &kp F12               &none                  &none          &kp C_RW                &kp C_PP            &kp C_FF           &kp C_BRI_UP
+        &kp F5            &kp F6            &kp F7            &kp F8                &none                  &none          &kp LSHFT               &kp LGUI            &kp LALT           &kp LCTRL
+        &kp F1            &kp F2            &kp F3            &kp F4                &none                  &none          &kp C_MUTE              &kp C_VOL_DN        &kp C_VOL_UP       &kp C_BRI_DN
+                          &trans            &trans            &kp TAB               &tog FUNC              &tog FUNC      &kp BSPC                &kp SPACE           &trans
+      >;
+    };
+
+    func_wn {
+      bindings = <
+        &kp F9            &kp F10           &kp F11           &kp F12               &none                  &none          &kp C_RW                &kp C_PP            &kp C_FF           &kp C_BRI_UP
+        &kp F5            &kp F6            &kp F7            &kp F8                &none                  &none          &kp LSHFT               &kp LCTRL           &kp LALT           &kp LGUI
+        &kp F1            &kp F2            &kp F3            &kp F4                &none                  &none          &kp C_MUTE              &kp C_VOL_DN        &kp C_VOL_UP       &kp C_BRI_DN
+                          &trans            &trans            &kp TAB               &tog FUNC_WN           &tog FUNC_WN   &kp BSPC                &kp SPACE           &trans
       >;
     };
 
     num {
       bindings = <
-        &kp KP_CLEAR      &kp KP_N7         &shift_eight      &kp KP_N9          &none                  &none         &none                &none              &none              &none
-        &kp KP_N0         &shift_four       &shift_five       &shift_six         &none                  &none         &kp LSHFT            &kp LGUI           &kp LALT           &kp LCTRL
-        &kp KP_DOT        &kp KP_N1         &kp KP_N2         &kp KP_N3          &none                  &none         &kp BSPC             &kp SPACE          &kp TAB            &kp RET
-                          &trans            &trans            &kp TAB            &tog NUM               &tog NUM      &kp BSPC             &kp SPACE          &trans
+        &kp KP_CLEAR      &kp KP_N7         &shift_eight      &kp KP_N9             &none                  &none          &none                   &none               &none              &none
+        &kp KP_N0         &shift_four       &shift_five       &shift_six            &none                  &none          &kp LSHFT               &kp LGUI            &kp LALT           &kp LCTRL
+        &kp KP_DOT        &kp KP_N1         &kp KP_N2         &kp KP_N3             &none                  &none          &kp BSPC                &kp SPACE           &kp TAB            &kp RET
+                          &trans            &trans            &kp TAB               &tog NUM               &tog NUM       &kp BSPC                &kp SPACE           &trans
       >;
     };
 
-   nav {
+    num_wn {
       bindings = <
-        &kp REDO          &none             &kp PRNT_SCRN     &kp FIND           &none                  &none         &kp HOME             &kp UP             &kp END            &kp PG_UP
-        &kp LCTRL         &kp LALT          &kp LGUI          &kp LSHFT          &none                  &none         &kp LEFT             &kp DOWN           &kp RIGHT          &kp PG_DN
-        &kp UNDO          &kp CUT           &kp COPY          &kp PASTE          &none                  &none         &select_word         &extend_word       &select_line       &extend_line
-                          &trans            &trans            &kp TAB            &tog NAV               &tog NAV      &kp BSPC             &kp SPACE          &trans
+        &kp KP_CLEAR      &kp KP_N7         &shift_eight      &kp KP_N9             &none                  &none          &none                   &none               &none              &none
+        &kp KP_N0         &shift_four       &shift_five       &shift_six            &none                  &none          &kp LSHFT               &kp LCTRL           &kp LALT           &kp LGUI
+        &kp KP_DOT        &kp KP_N1         &kp KP_N2         &kp KP_N3             &none                  &none          &kp BSPC                &kp SPACE           &kp TAB            &kp RET
+                          &trans            &trans            &kp TAB               &tog NUM_WN            &tog NUM_WN    &kp BSPC                &kp SPACE           &trans
+      >;
+    };
+
+    nav {
+      bindings = <
+        &kp MC_REDO       &none             &kp MC_PRNT_SCRN  &kp MC_FIND           &none                  &none          &kp MC_HOME             &kp UP              &kp MC_END         &kp PG_UP
+        &kp LCTRL         &kp LALT          &kp LGUI          &kp LSHFT             &none                  &none          &kp LEFT                &kp DOWN            &kp RIGHT          &kp PG_DN
+        &kp MC_UNDO       &kp MC_CUT        &kp MC_COPY       &kp MC_PASTE          &none                  &none          &select_word            &extend_word        &select_line       &extend_line
+                          &trans            &trans            &kp TAB               &tog NAV               &tog NAV       &kp BSPC                &kp SPACE           &trans
+      >;
+    };
+
+    nav_wn {
+      bindings = <
+        &kp WN_REDO       &none             &kp WN_PRNT_SCRN  &kp WN_FIND           &none                  &none          &kp HOME                &kp UP              &kp END            &kp PG_UP
+        &kp LGUI          &kp LALT          &kp LCTRL         &kp LSHFT             &none                  &none          &kp LEFT                &kp DOWN            &kp RIGHT          &kp PG_DN
+        &kp WN_UNDO       &kp WN_CUT        &kp WN_COPY       &kp WN_PASTE          &none                  &none          &select_word_wn         &extend_word_wn     &select_line_wn    &extend_line_wn
+                          &trans            &trans            &kp TAB               &tog NAV_WN            &tog NAV_WN    &kp BSPC                &kp SPACE           &trans
       >;
     };
 
     system {
       bindings = <
-        &none             &none             &none             &none              &bt BT_CLR_ALL         &out OUT_USB  &none                &none              &none              &none
-        &bt_0             &bt_1             &bt_2             &bt_3              &bt BT_CLR             &none         &to QWERTY           &to GANGST         &none              &none
-        &none             &none             &none             &none              &bootloader            &bootloader   &none                &none              &none              &none
-                          &bt BT_CLR_ALL    &none             &tog NAV           &none                  &none         &tog FUNC            &tog NUM           &none
+        &none             &none             &none             &none                 &bt BT_CLR_ALL         &out OUT_USB   &none                   &none               &none              &none
+        &bt_0             &bt_1             &bt_2             &bt_3                 &bt BT_CLR             &none          &to QWERTY              &to QWERTY_WN       &to GANGST         &to GANGST_WN
+        &none             &none             &none             &none                 &bootloader            &bootloader    &none                   &none               &none              &none
+                          &bt BT_CLR_ALL    &none             &tog NAV              &none                  &none          &tog FUNC               &tog NUM            &none
       >;
     };
 
-//    template {
-//          bindings = <
-//            &none             &none             &none             &none              &mo SYSTEM      &mo SYSTEM               &none                &none              &none              &none
-//            &none             &none             &none             &none              &none           &none                    &none                &none              &none              &none
-//            &none             &none             &none             &none              &none           &none                    &none                &none              &none              &none
-//                              &none             &none             &none              &none           &none                    &none                &none              &none
-//          >;
-//        };
+    system_wn {
+      bindings = <
+        &none             &none             &none             &none                 &bt BT_CLR_ALL         &out OUT_USB   &none                   &none               &none              &none
+        &bt_0             &bt_1             &bt_2             &bt_3                 &bt BT_CLR             &none          &to QWERTY              &to QWERTY_WN       &to GANGST         &to GANGST_W
+        &none             &none             &none             &none                 &bootloader            &bootloader    &none                   &none               &none              &none
+                          &bt BT_CLR_ALL    &none             &tog NAV_WN           &none                  &none          &tog FUNC_WN            &tog NUM_WN         &none
+      >;
+    };
 
   };
 };
